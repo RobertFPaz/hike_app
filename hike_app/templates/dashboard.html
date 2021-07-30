@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Trails</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Satisfy&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav id="main_menu" class="navbar navbar-expand-md fixed-top navbar-dark mb-5">
+        <div class="container">
+            <h1 class="happy">Happy Trails</h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="mainMenu" class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li><a class="nav-link" href="/hikes">Home</a></li>
+                    <li><a class="nav-link" href="/hikes/new">New</a></li>
+                    <li><a class="nav-link active" href="/hikes/join">Join</a></li>
+                    <li><a class="nav-link" href="/hikes/account">Account</a></li>
+                    <li><a class="nav-link" href="/hikes/logout">Log Out</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="wrapper">
+        <div class=" row justify-content-center">
+            <div class="col-6 title-wrapper text-center mt-5 pt-3">
+                <h1 class="mt-4 stroke display-4">Welcome {{user.first_name}}!</h1> 
+                <h2 class="stroke">Here are your future hikes</h2>
+            </div>
+        </div>
+        <div class="table-wrapper mx-3">
+            <table class="table table-striped table-hover table-bordered border-secondary bg-light">
+                <thead>
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Location</th>
+                        <th>Attendees</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for hike in user.user_hikes.all %}
+                    <tr>
+                        <td>{{hike.event_name}}</td>
+                        <td>{{hike.location}}</td>
+                        <td>{{hike.attend.count}}/{{hike.max_attendees}}</td>
+                        <td>{{hike.date}}</td>
+                        <td>{{hike.time}}</td>
+                        <td><a href="/hikes/remove/{{hike.id}}" class="action">Remove</a></td>
+                    </tr>
+                {% endfor %}
+                {% for hike in user.hikes.all %}
+                    <tr>
+                        <td>{{hike.event_name}}</td>
+                        <td>{{hike.location}}</td>
+                        <td>{{hike.attend.count}}/{{hike.max_attendees}}</td>
+                        <td>{{hike.date}}</td>
+                        <td>{{hike.time}}</td>
+                        <td><a href="/hikes/delete/{{hike.id}}" class="action">Delete</a> <a href="/hikes/edit/{{hike.id}}" class="action">Edit</a></td>
+                    </tr>
+                {% endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Trails</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Satisfy&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav id="main_menu" class="navbar navbar-expand-md fixed-top navbar-dark mb-5">
+        <div class="container">
+            <h1 class="happy">Happy Trails</h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="mainMenu" class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li><a class="nav-link" href="/hikes">Home</a></li>
+                    <li><a class="nav-link" href="/hikes/new">New</a></li>
+                    <li><a class="nav-link active" href="/hikes/join">Join</a></li>
+                    <li><a class="nav-link" href="/hikes/account">Account</a></li>
+                    <li><a class="nav-link" href="/hikes/logout">Log Out</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="wrapper">
+        <div class="row">
+            <div class="d-flex flex-column justify-content-center text-white mt-5">
+                <div class="errors col-4 mt-5">
+                    {% if messages %}
+                    <ul class="pl-2 ul-errors text-white">
+                        {% for message in messages %}
+                        <li class="pb-1">{{message}}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <form action="/hikes/account" method="POST" class="form-login mt-5">
+                    {% csrf_token %}
+                    <h1 class="mb-3 text-white text-center stroke">Update your account</h1>
+                    <label for="first_name" class="form-label">First Name</label>
+                    <input type="text" name="first_name" class="form-control" value="{{user.first_name}}"><br>
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input type="text" name="last_name" class="form-control" value="{{user.last_name}}"><br>
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" name="email" class="form-control" value="{{user.email}}"><br>
+                    <input type="submit" value="Update" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

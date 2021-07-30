@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Trails</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="dark-bg" id="hero">
+        <div class="container register">
+            <div class="text-white d-flex flex-column h-100 justify-content-center text-center">
+                <div class="group-errors">
+                    {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                        <li>{{message}}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <form action="/register" method="POST" class="form-login text-center mb-5">
+                    {% csrf_token %}
+                    <h2 class="mb-3">Register</h2>
+                    <input type="text" name="first_name" class="form-control mb-3" placeholder="First Name">
+                    <input type="text" name="last_name" class="form-control mb-3" placeholder="Last Name">
+                    <input type="text" name="email" class="form-control mb-3" placeholder="Email Address">
+                    <input type="password" name="password" class="form-control mb-3" placeholder="Password">
+                    <input type="password" name="password_conf" class="form-control mb-3" placeholder="Confirm Password">
+                    <input type="submit" value="Submit" class="btn btn-lg btn-primary">
+                </form>
+                <p>Already have an account?</p>
+                <a href="/login_page"><button class="btn btn-sm btn-primary mb-5">Log In</button></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

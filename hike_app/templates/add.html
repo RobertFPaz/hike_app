@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Trails</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Satisfy&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav id="main_menu" class="navbar navbar-expand-md fixed-top navbar-dark mb-5">
+        <div class="container">
+            <h1 class="happy">Happy Trails</h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="mainMenu" class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li><a class="nav-link" href="/hikes">Home</a></li>
+                    <li><a class="nav-link" href="/hikes/new">New</a></li>
+                    <li><a class="nav-link active" href="/hikes/join">Join</a></li>
+                    <li><a class="nav-link" href="/hikes/account">Account</a></li>
+                    <li><a class="nav-link" href="/hikes/logout">Log Out</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="add-wrapper">
+        <div class="row">
+            <div class="d-flex flex-column justify-content-center  mt-5">
+                <div class="errors col-4 mt-5">
+                    {% if messages %}
+                    <ul class="pl-2 ul-errors text-white">
+                        {% for message in messages %}
+                        <li class="pb-1">{{message}}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <form action="/hikes/new" method="POST" class="form-login mt-5 text-white" >
+                    {% csrf_token %}
+                    <h1 class="mb-3 text-white text-center stroke">Create a new hike</h1>
+                    <label for="event_name" class="form-label">Event Name</label>
+                    <input type="text" name="event_name" class="form-control"><br>
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" name="location" class="form-control"><br>
+                    <label for="description">Description</label>
+                    <textarea name="description" class="form-control"></textarea><br>
+                    <label for="distance" class="form-label">Distance</label>
+                    <input type="number" step="0.1" name="distance" class="form-control"><br>
+                    <label for="max_attendees" class="form-label">Max Attendees (limit 15)</label>
+                    <input type="number" name="max_attendees" min=2 max=15 class="form-control"><br>
+                    <label for="difficulty" class="form-label">Difficulty</label>
+                    <select name="difficulty" required class="form-select">
+                        <option value="">Please select</option>
+                        <option value="easy">Easy</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="strenuous">Strenuous</option>
+                    </select><br>
+                    <label for="pets" class="form-label">Pets Ok?</label><br>
+                    <input type="radio" name="pets" value="yes" class="form-check-input">
+                    <label for="yes" class="form-label">Yes</label>
+                    <input type="radio" name="pets" value="no" required class="form-check-input">
+                    <label for="no" class="form-label">No</label><br>
+                    <label for="date"class="form-label">Date</label>
+                    <input type="date" name="date" class="form-control"><br>
+                    <label for="time" class="form-label">Time</label>
+                    <select name="time" required class="form-select">
+                        <option value="">Please select</option>
+                        <option value="600 am">600 AM</option>
+                        <option value="700 am">700 AM</option>
+                        <option value="800 am">800 AM</option>
+                        <option value="900 am">900 AM</option>
+                        <option value="1000 am">1000 AM</option>
+                        <option value="1100 am">1100 AM</option>
+                        <option value="1200 pm">1200 PM</option>
+                        <option value="100 pm">100 PM</option>
+                        <option value="200 pm">200 PM</option>
+                        <option value="300 am">300 PM</option>
+                    </select><br>
+                    <input type="submit" value="submit" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>
